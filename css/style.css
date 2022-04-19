@@ -12,9 +12,13 @@ img {
     height: 100%;
 }
 
+.material-icons-outlined {
+    font-family: "Material Icons";
+}
+
 /* Typography */
 .title {
-    font-size: 2.5em;
+    font-size: 2.5rem;
     margin: 2em 0 1em;
 }
 
@@ -39,7 +43,6 @@ img {
 }
 
 .zoom-icon {
-    font-family: "Material Icons";
     font-size: 2.5em;
     color: #000000;
     opacity: 0;
@@ -55,4 +58,52 @@ img {
 
 .img-container:hover .zoom-icon {
     opacity: 1;
+}
+
+/* Modal */
+.modal {
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+}
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn {
+    font-size: 2rem;
+    color: #ffffff;
+    background-color: transparent;
+    border: 0;
+    padding: 0.5em 1em;
+    outline: none;
+    cursor: pointer;
+}
+
+.img-name,
+.img-count {
+    font-size: 1.2rem;
+    color: #ffffff;
+    padding: 0.6em 1em;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    position: relative;
+}
+
+.img-name {
+    bottom: 2.5em;
+}
+
+.img-count {
+    display: inline-block;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 5em;
 }
