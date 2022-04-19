@@ -1,7 +1,10 @@
 const galleryEl = document.querySelector("#gallery");
 const modal = document.querySelector("#modal");
 const modalImg = document.querySelector("#modal-img");
+const previousBtn = document.querySelector("#previous-btn");
+const nextBtn = document.querySelector("#next-btn");
 let imagesArr;
+let modalImgIndex;
 
 class Image {
     constructor(uuid, name, url) {
@@ -42,7 +45,7 @@ galleryEl.addEventListener("click", function (event) {
 });
 
 modal.addEventListener("click", function (event) {
-    if (event.target.classList.contains("modal-img")) {
+    if (event.target.classList.contains("modal-img") || event.target.classList.contains("btn")) {
         return;
     }
     modal.close();
@@ -50,10 +53,41 @@ modal.addEventListener("click", function (event) {
 
 // Function to display the clicked image in modal
 function displayModalImg(image) {
+    modalImgIndex = imagesArr.indexOf(image);
     const imgCount = document.querySelector(".img-count");
     modalImg.innerHTML = `
         <img class="modal-img" src=${image.url} alt="" />
         <figcaption class="img-name">${image.name}</figcaption>
     `;
     imgCount.textContent = `Image ${imagesArr.indexOf(image) + 1}/${imagesArr.length}`;
+}
+
+previousBtn.addEventListener("click", displayPreviousImg);
+
+nextBtn.addEventListener("click", displayNextImg);
+
+modal.addEventListener("keyup", function (event) {
+    if (event.key === "ArrowLeft") {
+        displayPreviousImg();
+    } else if (event.key === "ArrowRight") {
+        displayNextImg();
+    }
+});
+
+function displayPreviousImg() {
+    if (modalImgIndex === 0) {
+        modalImgIndex = imagesArr.length - 1;
+    } else {
+        modalImgIndex--;
+    }
+    displayModalImg(imagesArr[modalImgIndex]);
+}
+
+function displayNextImg() {
+    if (modalImgIndex === imagesArr.length - 1) {
+        modalImgIndex = 0;
+    } else {
+        modalImgIndex++;
+    }
+    displayModalImg(imagesArr[modalImgIndex]);
 }
