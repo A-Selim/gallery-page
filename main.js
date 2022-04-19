@@ -9,7 +9,10 @@ class Image {
     }
 
     get imgHTML() {
-        return `<div class="img-container"><img src=${this.url} alt="" /></div>`;
+        return `<div class="img-container">
+                    <img src=${this.url} alt="" />
+                    <span class="material-icons-outlined zoom-icon">search</span>
+                </div>`;
     }
 }
 
