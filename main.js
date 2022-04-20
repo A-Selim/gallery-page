@@ -3,6 +3,7 @@ const modal = document.querySelector("#modal");
 const modalImg = document.querySelector("#modal-img");
 const previousBtn = document.querySelector("#previous-btn");
 const nextBtn = document.querySelector("#next-btn");
+const darkModeBtn = document.querySelector("#dark-mode-btn");
 let imagesArr;
 let modalImgIndex;
 
@@ -91,3 +92,8 @@ function displayNextImg() {
     }
     displayModalImg(imagesArr[modalImgIndex]);
 }
+
+// Dark mode button eventListener
+darkModeBtn.addEventListener("click", function () {
+    document.body.classList.toggle("dark");
+});

@@ -102,8 +102,21 @@ img {
 }
 
 .img-count {
-    display: inline-block;
-    left: 50%;
-    transform: translate(-50%);
-    margin-top: 5em;
+/* Dark mode button & theme */
+.dark-mode-btn {
+    font-size: var(--fs-icon);
+    color: var(--clr-dark);
+    position: absolute;
+    right: 5%;
+    top: 0;
+}
+
+body.dark {
+    background-color: var(--clr-dark);
+}
+
+body.dark .title,
+body.dark .zoom-icon,
+body.dark .dark-mode-btn {
+    color: var(--clr-light);
 }
