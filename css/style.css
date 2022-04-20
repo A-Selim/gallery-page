@@ -34,6 +34,7 @@ img {
 
 /* Typography */
 body {
+    font-family: "Source Code Pro", monospace;
     font-size: var(--fs-body);
 }
 .title {
