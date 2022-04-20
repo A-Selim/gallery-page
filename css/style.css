@@ -99,17 +99,46 @@ body {
 }
 
 .modal-container {
-    height: 80vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-areas:
+    "img img"
+    "pre next";
+}
+
+figure {
+    margin: 3em 0;
 }
 
 #modal-img {
-    max-width: 70%;
-    height: 65vh;
+    grid-area: img;
+}
+
+#previous-btn {
+    grid-area: pre;
+}
+
+#next-btn {
+    grid-area: next;
+}
+
+#modal-img {
+    height: 40vh;
     object-fit: cover;
     position: relative;
+}
+
+@media (min-width: 800px) {
+    .modal-container {
+        height: 80vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #modal-img {
+        max-width: 70%;
+        height: 65vh;
+    }
 }
 
 .btn {
