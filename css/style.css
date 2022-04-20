@@ -106,7 +106,7 @@ body {
 }
 
 #modal-img {
-    width: 70%;
+    max-width: 70%;
     height: 65vh;
     object-fit: cover;
     position: relative;
