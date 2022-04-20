@@ -16,7 +16,7 @@ class Image {
 
     get imgHTML() {
         return `<div class="img-container">
-                    <img class="image" src=${this.url} alt="" />
+                    <img src=${this.url} alt="" />
                     <span class="material-icons-outlined zoom-icon">search</span>
                 </div>`;
     }
@@ -26,25 +26,19 @@ fetch("https://scaleflex.cloudimg.io/v7/0.fe_task_static/pictures.json?vh=7a646d
     .then((res) => res.json())
     .then((data) => {
         imagesArr = data.map((image) => new Image(image.uuid, image.name, image.url));
+        // Generate images HTML
         galleryEl.innerHTML = imagesArr.map((image) => image.imgHTML).join("");
+
+        const imgContainers = document.querySelectorAll(".img-container");
+        imgContainers.forEach((container, index) => {
+            container.addEventListener("click", function () {
+                modal.showModal();
+                displayModalImg(imagesArr[index]);
+            });
+        });
     });
 
-galleryEl.addEventListener("click", function (event) {
-    modal.showModal();
-    if (event.target.classList.contains("zoom-icon")) {
-        const zoomIconsArr = Array.from(document.getElementsByClassName("zoom-icon"));
-        const zoomIconIndex = zoomIconsArr.indexOf(event.target);
-        displayModalImg(imagesArr[zoomIconIndex]);
-    } else if (event.target.classList.contains("image")) {
-        const clickedImgSrc = event.target.src;
-        imagesArr.forEach((image) => {
-            if (image.url === clickedImgSrc) {
-                displayModalImg(image);
-            }
-        });
-    }
-});
-
+// Closing modal eventListener
 modal.addEventListener("click", function (event) {
     if (event.target.classList.contains("modal-img") || event.target.classList.contains("btn")) {
         return;
@@ -52,7 +46,20 @@ modal.addEventListener("click", function (event) {
     modal.close();
 });
 
-// Function to display the clicked image in modal
+// Carousel modal navigation arrows listeners
+previousBtn.addEventListener("click", navigateToPrevImage);
+
+nextBtn.addEventListener("click", navigateToNextImage);
+
+modal.addEventListener("keyup", function (event) {
+    if (event.key === "ArrowLeft") {
+        navigateToPrevImage();
+    } else if (event.key === "ArrowRight") {
+        navigateToNextImage();
+    }
+});
+
+// Display the clicked image in modal
 function displayModalImg(image) {
     modalImgIndex = imagesArr.indexOf(image);
     const imgCount = document.querySelector(".img-count");
@@ -63,19 +70,7 @@ function displayModalImg(image) {
     imgCount.textContent = `Image ${imagesArr.indexOf(image) + 1}/${imagesArr.length}`;
 }
 
-previousBtn.addEventListener("click", displayPreviousImg);
-
-nextBtn.addEventListener("click", displayNextImg);
-
-modal.addEventListener("keyup", function (event) {
-    if (event.key === "ArrowLeft") {
-        displayPreviousImg();
-    } else if (event.key === "ArrowRight") {
-        displayNextImg();
-    }
-});
-
-function displayPreviousImg() {
+function navigateToPrevImage() {
     if (modalImgIndex === 0) {
         modalImgIndex = imagesArr.length - 1;
     } else {
@@ -84,7 +79,7 @@ function displayPreviousImg() {
     displayModalImg(imagesArr[modalImgIndex]);
 }
 
-function displayNextImg() {
+function navigateToNextImage() {
     if (modalImgIndex === imagesArr.length - 1) {
         modalImgIndex = 0;
     } else {
